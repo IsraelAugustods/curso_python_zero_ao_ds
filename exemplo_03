@@ -1,0 +1,236 @@
+
+import pandas as pd
+# np.read_csv('datasets/kc_house_data.csv')
+from numpy import int64, int32
+
+pd.read_csv('datasets/kc_house_data.csv')
+
+data = pd.read_csv('datasets/kc_house_data.csv')
+
+# print( data.dtypes)
+data['date'] = pd.to_datetime(data['date'])
+
+# data['bedrooms'] = data['bedrooms'].astype( int64 )
+
+
+# ( data.iloc [:, 0:3])
+
+# print(data.loc[0:5,['id', 'bathrooms']])
+
+# print(data.columns)
+
+# cols = [True, True, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False]
+
+# print(data.loc[0:6, cols])
+
+
+# #Qual a data imovel mais antigo do portifolio?
+#
+#data['date'] = pd.to_datetime(data['date'])
+#
+# data[['id', 'date']].sort_values('date', ascending=True)
+#
+# print( data[['id', 'date']].sort_values('date', ascending=True))
+
+
+
+# Quantos imoveis possuem o maximo de andares?
+
+# print(data['floors'].unique()) #Achei o maximo de andares, no caso 3.5
+#
+# print(len(data[data["floors"] == 3.5] [['id', 'floors']]))
+
+# Criando uma variavel alto padrão (high_level) e baixo padrão (low_level)
+
+data ['level'] = 'standard'
+
+#data.loc[data['price'] > 540000, 'level'] = 'high_level'
+
+#data.loc[data['price'] < 540000, 'level'] = 'low_level'
+
+
+
+#print(data.loc[0:10, 'level']) #Usando loc para ver as linhas da coluna level
+
+#Relatorio ordenado pelo preço com varias colunas
+
+# report = data[['id', 'date', 'bedrooms', 'sqft_lot', 'price', 'level']].sort_values('price', ascending=False)
+#
+# report.to_csv('datasets/report_aula02.csv', index= False) #INDEX FALSE PARA RESETALO
+
+#Fazer um mapa
+#Biblioteca que vai ser utilizada se chama Plotly
+# scatter_mapbox é a função que desenha o mapa
+
+
+# import plotly.express as px
+#
+# data_map = data[['id', 'lat', 'long', 'price']]
+# mapa = px.scatter_mapbox (data_map, lat = 'lat' , lon= 'long' , hover_name= 'id' , hover_data= ['price'],
+#                 color_discrete_sequence= ['green'],
+#                 zoom=3,
+#                 height=300)
+#
+# mapa.update_layout(mapbox_style='open-street-map')
+# mapa.update_layout(height=600, margin={'r':0 , 't':0 , 'l':0, 'b':0 } )
+# mapa.show()
+#
+# mapa.write_html('datasets/mapa_house_rockets.html')
+
+##1????????
+data['house_age'] = 'standard'
+# datap = pd.Timestamp(2014,1,1)
+#
+# data.loc[data['date'] > datap,  'house_age'] = 'new_house'
+# data.loc[data['date'] < datap,  'house_age'] = 'old_house'
+
+
+
+##2
+#data['dormitory_types'] = 'standard'
+data['dormitory_types'] = data['bedrooms'].apply(lambda x: 'studio'  if x ==1
+                                                 else   'apartament' if x == 2
+                                                 else         'house' if x > 2 else 'NA')
+
+# print(data[['dormitory_types', 'bedrooms']].head(40))
+
+# data.loc[data['bedrooms'] == 1, 'dormitory_types'] = 'studio'
+# data.loc[data['bedrooms'] == 2, 'dormitory_types'] = 'apartament'
+# data.loc[data['bedrooms'] > 2, 'dormitory_types'] = 'house'
+
+# #print(data.loc[0:20,['id', 'bedrooms', 'dormitory_types']])
+#
+##3
+
+# data['condition_type'] = 'standard'
+data['condition_type'] = data['condition'].apply(lambda x: 'bad' if x <= 2 else 'regular' if (x == 3) | (x == 4) else
+                                        'good' if x == 5 else 'NA')
+
+# (data[['condition_type', 'condition']])
+
+
+# data.loc[data['condition'] <= 2, 'condition_type'] = 'bad'
+# data.loc[data['condition'] == 3, 'condition_type'] = 'regular'
+# data.loc[data['condition'] == 4, 'condition_type'] = 'regular'
+# data.loc[data['condition'] == 5, 'condition_type'] = 'good'
+#
+#print(data.loc[0:40, ['condition_type', 'condition', 'id']])
+
+##4
+
+data['condition'] = data['condition'].astype('str')
+
+##5
+
+cols = data[['sqft_living15', 'sqft_lot15' ]]
+data = data.drop (cols, axis=1)
+
+#print(data.columns)
+
+##6
+
+data['yr_built'] = pd.to_datetime(data['yr_built'])
+
+##7
+
+data['yr_renovated'] = pd.to_datetime(data['yr_renovated'])
+
+##8
+
+data[['id','yr_built']].sort_values('yr_built', ascending=True)
+
+#4697   9126101645 1970-01-01 00:00:00.000001900
+
+
+##9
+
+data[['id', 'yr_renovated', 'price']].sort_values('yr_renovated', ascending=True)
+
+#1970-01-01 00:00:00.000000000
+
+
+##10
+
+#print(data.loc[data['floors'] == 2].shape)
+
+#8241
+
+##11
+
+#print(data.loc[data ['condition_type'] == 'regular', ['id', 'condition', 'condition_type']].shape)
+
+# 19710
+
+##12
+
+#print(data.loc[(data['condition_type'] == 'bad') & (data['waterfront'] == 1), 'id'].shape)
+
+
+# 2
+
+##13?????????????
+
+#1701
+
+#print(data.loc[data['condition_type'] == 'good'])
+
+#print(data.loc[data['house_age'] == 'new_house'])
+
+##14
+
+#print(data.loc[data['dormitory_types'] == 'studio', 'price'].max())
+
+
+#1247000.0
+
+##15?????
+
+#print(data.loc[(data['dormitory_types'] == 'apartament') & (data['yr_renovated'] == 2015-1-1)][['id','dormitory_types'
+#,'yr_renovated']])
+
+##16
+
+#(data.loc[data['dormitory_types'] == 'house', 'bedrooms'].max())
+#33
+
+##17??????
+
+
+##18
+
+#10.1
+
+#print(data[['id', 'date', 'price', 'floors', 'zipcode']].head(17))
+
+
+#10.2
+
+#print(data.columns.get_loc('zipcode'))
+
+#  0, 1, 2 , 7, 16
+#cols_um = [0, 1, 2 , 7, 16]
+
+#print(data.iloc[10:17, cols_um])
+
+#10.3
+
+#print(data.loc[10:17,['id', 'date', 'price', 'floors', 'zipcode']])
+
+
+#10.4
+
+#cols=[True, True, True, False,False,False,False,True,False,False,False,False,False,False,False,False,True,False,False
+ #      ,False,False,False,False]
+
+#print(data.loc[10:17, cols])
+
+##19
+#
+# report = data[['floors', 'condition_type', 'waterfront', 'dormitory_types', 'yr_renovated', 'bathrooms']]
+#
+# report.to_csv('datasets/report_do_ceo.csv', index = False)
+
+##20
+
+#green
+

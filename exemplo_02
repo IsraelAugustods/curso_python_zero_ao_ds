@@ -1,0 +1,63 @@
+
+
+import pandas as pd
+
+pd.read_csv ( 'datasets/kc_house_data.csv' )
+
+data = pd.read_csv ( 'datasets/kc_house_data.csv' )
+
+#print(data[['id', 'price']].sort_values('price', ascending=False)) #Maior preço de casa
+
+#print(data[['id', 'bedrooms']].sort_values('bedrooms', ascending=False)) #Casa com mais quartos
+
+#print (data.sum (axis= None) ) #Soma total de cada uma das colunas
+
+#print(data['bedrooms'].value_counts ( ) ) #Monstra a quantas vezes um numero se repete em uma coluna
+
+#print(data['price'].mean ()) #Descobre a media de uma coluna especifica
+
+#print(data.price.describe()) #Informacoes gerias sobre uma coluna especifica ou do conjunto de dados inteiro
+
+#print(data.loc[data['bathrooms'] == 2 ] )
+
+#print(len( data['id'].unique () ) )
+
+#print(data.loc[data['bathrooms']== 2, 'price'].mean() )
+
+#print(data.loc[data['bedrooms'] == 3, 'price'].min())
+
+#data ['m2'] = data ['sqft_living'] * 0.093
+#print(len(data.loc[data ['m2'] > 300 ] ))
+
+#((len(data.loc[data['floors'] > 2 ] )))
+
+#print(len(data.loc[data['waterfront'] == 1 ] ))
+
+#print(len(data.loc[(data['waterfront'] == 1) & (data['bedrooms'] == 3),'id']))
+
+#print((data.loc[(data['m2'] > 300) & (data['bathrooms'] > 2 )],'id' ))
+
+
+# data_map = data[['id', 'lat', 'long', 'price']]
+# mapa = px.scatter_mapbox (data_map, lat = 'lat' , lon= 'long' , hover_name= 'id' , hover_data= ['price'],
+#                 color_discrete_sequence= ['fuchsia'],
+#                 zoom=3,
+#                 height=300)
+#
+# mapa.update_layout(mapbox_style='open-street-map')
+# mapa.update_layout(height=600, margin={'r':0 , 't':0 , 'l':0, 'b':0 } )
+# mapa.show()
+#
+
+# import plotly.express as px
+#
+# data_map = data[['id', 'lat', 'long', 'price']]
+# mapa = px.scatter_mapbox (data_map, lat = 'lat' , lon= 'long' , hover_name= 'id' , hover_data= ['price'],
+#                 color_discrete_sequence= ['green'],                zoom=3,
+#                  height=300)
+#
+# mapa.update_layout(mapbox_style='open-street-map')
+# mapa.update_layout(height=600, margin={'r':0 , 't':0 , 'l':0, 'b':0 } )
+# mapa.show()
+
+#mapa.write_html('datasets/mapa_house_rockets.html')
