@@ -1,0 +1,13 @@
+
+import pandas as pd
+
+pd.read_csv ( 'datasets/kc_house_data.csv' )
+
+data = pd.read_csv ( 'datasets/kc_house_data.csv' )
+
+#print (data.head) Cinco primeiros
+
+#print ( data.shape ) #Numero de colunas e linhas
+
+#print ( data.columns ) #Nomes das colunas (atributos)
+ print( data [[ 'id', 'price']].sort_values( 'price', ascending = False) )
